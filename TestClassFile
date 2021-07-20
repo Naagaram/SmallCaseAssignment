@@ -1,0 +1,84 @@
+package com.ecommerce.Testcases;
+
+import java.util.Set;
+
+import org.testng.annotations.Test;
+import com.ecommerce.Pageobjects.*;;
+
+public class AppleipadTest extends Baseclass {
+	
+  //Test Scenario 1
+	
+	@Test
+	public void searchproduct() throws InterruptedException
+	{
+		
+		AddTocartFlip af = new AddTocartFlip(driver);
+		af.clearmodal();
+		af.setSearch(Searchitem);
+		Thread.sleep(1000);
+		af.searchclick();
+		af.selectitem();
+		switchwindow();
+		af.Addcart();
+		double productprice= af.getprice();
+		System.out.println("Price before addition i.e. cost of single piece: " +  productprice);
+		af.Clickplus();
+		Thread.sleep(1000);
+		double finalprice= af.getprice();
+		System.out.println("Price after addition: " +  finalprice);
+	}
+	
+  
+  //Test Scenario 2
+	@Test
+	public void searchproductamazon() throws InterruptedException
+	{
+		AddTocartFlip af = new AddTocartFlip(driver);
+		
+		//Going to flipkart for the price
+		af.clearmodal();
+		af.setSearch(Searchitem);
+		Thread.sleep(1000);
+		af.searchclick();
+		af.selectitem();
+		switchwindow();
+		af.Addcart();
+		double flipkartprice= af.getprice();
+		System.out.println("Price of iphone in Flipart :" + flipkartprice);
+		
+	    //Going to Amazon for the price
+		switchURL();
+	    af.setSearchA(Searchitem);
+	    Thread.sleep(1000);
+	    af.searchclicka();
+	    af.selectitemA();
+	    switchwindow();
+	    af.Addcarta();
+	    switchactive();
+	    af.clearoverlay();
+	    af.Clickoncarta();
+	    
+	    double amazonprice = af.getpricea();
+	    System.out.println("Price of iphone in amazon : " + amazonprice);
+	    
+	    if(amazonprice>=flipkartprice) {
+	    	System.out.println("Cheaper price available in Flipkart , You can save:  " + (amazonprice-flipkartprice));
+	    }
+	    else if(amazonprice==flipkartprice) {
+	    	System.out.println("Both the prices are equal, Happy shopping" );
+	    }
+	    else if(amazonprice<=flipkartprice) {
+	    	System.out.println("Cheaper price available in amazon  , You can save:   " + (flipkartprice-amazonprice));
+	    }
+	    
+	    
+	    
+	    
+	    
+	    
+	
+	}
+	
+
+}

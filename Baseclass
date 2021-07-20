@@ -1,0 +1,68 @@
+package com.ecommerce.Testcases;
+
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
+import java.util.*;
+
+
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.openqa.selenium.JavascriptExecutor;
+
+public class Baseclass {
+	public String URL = "https://www.flipkart.com/";
+	public String URL2 = "https://www.amazon.in/";
+	public String Searchitem = "apple iphone 12";
+	public static WebDriver driver;
+	
+	@BeforeClass
+	public  void setup() {
+		
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "//Drivers//chromedriver.exe" );
+		driver = new ChromeDriver();
+		driver.get(URL);
+		driver.manage().timeouts().implicitlyWait(156,TimeUnit.SECONDS);
+	}
+	
+    public void switchwindow() throws InterruptedException {
+    	String mainwindow = driver.getWindowHandle();
+    	
+    	Set<String> set = driver.getWindowHandles();    	
+    	Iterator <String> it= set.iterator();
+    	
+    	while(it.hasNext()) {
+    		
+    		String newwindow = it.next();
+    		
+    		if(!mainwindow.equalsIgnoreCase(newwindow)){
+    			
+    			driver.switchTo().window(newwindow);
+    			Thread.sleep(5000);
+    		}
+    	}
+    	
+    	
+    	
+		
+	}
+	@AfterClass
+	public void teardown() throws InterruptedException {
+		//kept maximize in teardown for simplicity
+		driver.manage().window().maximize()	;
+		Thread.sleep(5000);
+		driver.close();
+		
+	}
+	
+	
+	public void switchURL() {
+		driver.navigate().to(URL2);
+		
+	}
+	
+	public void switchactive() {
+		driver.switchTo().activeElement();
+	}
+}

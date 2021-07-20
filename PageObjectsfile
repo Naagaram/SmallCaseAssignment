@@ -1,0 +1,168 @@
+package com.ecommerce.Pageobjects;
+
+import java.util.List;
+
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+
+public class AddTocartFlip {
+	
+	WebDriver localdriver;
+	
+	public AddTocartFlip(WebDriver driver){
+		
+		localdriver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	@FindBy(xpath = "//input[@class='_2IX_2- VJZDxU']")
+	WebElement welcomemodal;
+	
+	@FindBy(name = "q")
+	WebElement search;
+	
+	@FindBy(className = "YUhWwv")
+	WebElement cart;
+	
+	@FindBy(xpath = "//button[text()='ADD TO CART']")
+	WebElement addtocart;
+	
+	@FindBy(xpath = "//button[@type='submit']")
+	WebElement searchclick;
+	
+	@FindBy(xpath = "//div[text()='APPLE iPhone 12 (Blue, 128 GB)']")
+	WebElement iphone;
+		
+	@FindBy(xpath = "//button[text()='+']")
+	WebElement plus;
+	
+	@FindBy(xpath= "//div[@class='_1dqRvU']")
+	WebElement price;
+	
+	//amazon 
+	
+	@FindBy(id = "twotabsearchtextbox")
+	WebElement asearch;
+	
+	@FindBy(id= "nav-search-submit-button")
+	WebElement searchclicka;
+	
+	@FindBy(xpath = "//span[text()='New Apple iPhone 12 (128GB) - Blue']")
+	WebElement iphonea;
+	
+	@FindBy(id = "add-to-cart-button")
+	WebElement addcarta;
+	
+	@FindBy(id = "attach-close_sideSheet-link")
+	WebElement close;
+	
+	@FindBy(xpath="//a[@id='nav-cart']")
+	WebElement cartclicka;
+	
+	@FindBy(xpath= "//span[@id='sc-subtotal-amount-activecart']")
+	WebElement getpricea;
+	
+	
+	public void clearmodal() {
+		welcomemodal.sendKeys(Keys.ESCAPE);
+	}
+	
+	public void setSearch(String searchtext) 
+	{
+		search.sendKeys(searchtext);
+		
+	}
+	
+	public void searchclick()
+	{
+		searchclick.click();
+	}
+	
+	public void selectitem() throws InterruptedException {
+	
+		Thread.sleep(5000);
+		iphone.click();
+	}
+	
+	public void Addcart() throws InterruptedException {
+		
+		Thread.sleep(5000);
+		addtocart.click();
+		Thread.sleep(5000);
+		
+	}
+	
+	
+	public void Clickplus() throws InterruptedException
+	{
+		Thread.sleep(1000);
+		plus.click();
+	}
+	
+	public double getprice() throws InterruptedException
+	{
+		
+		String finalprice = price.getText();
+		finalprice= finalprice.substring(1);
+		StringBuilder strdelete = new StringBuilder(finalprice);
+		strdelete.deleteCharAt(2);
+		String newfinalprice= strdelete.toString();
+		double fpflip = Double.parseDouble(newfinalprice);
+		return fpflip;
+	}
+	
+	//Amazon Methods 
+	
+	public void setSearchA(String searchtext) 
+	{
+		asearch.sendKeys(searchtext);
+		
+	}
+	
+	public void searchclicka()
+	{
+		searchclicka.click();
+	}
+	public void selectitemA() throws InterruptedException {
+		
+		Thread.sleep(5000);
+		iphonea.click();
+	}
+    public void Addcarta() throws InterruptedException {
+		
+		Thread.sleep(5000);
+		addcarta.click();
+		Thread.sleep(5000);
+		
+	}
+    public void clearoverlay() {
+	close.click();
+    }
+
+	public void Clickoncarta() throws InterruptedException {
+		
+		Thread.sleep(5000);
+		cartclicka.click();
+		Thread.sleep(5000);
+	}
+	
+	public double getpricea() throws InterruptedException
+	{
+		
+	String aprice = getpricea.getText();
+	aprice= aprice.substring(1);
+	StringBuilder strdelete = new StringBuilder(aprice);
+	strdelete.deleteCharAt(4);
+	String anewfinalprice= strdelete.toString();
+	double amazonprice = Double.parseDouble(anewfinalprice);
+	return amazonprice;
+	
+	}
+}
+
+	
+
+
